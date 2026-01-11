@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ preset.name }} – Resume Preview</title>
+  <style>
+    /* Same baseline as resume_print.html; add browser-friendly units */
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; color:#111; margin: 24px auto; max-width: 900px; }
+    h1 { font-size: 1.6rem; margin: 0 0 0.25rem 0; }
+    h2 { font-size: 1.1rem; margin: 1rem 0 0.25rem 0; border-bottom: 1px solid #ddd; padding-bottom: 0.15rem; }
+    .section { margin-top: 0.6rem; }
+    .item { margin: 0.3rem 0; font-size: 0.9em; }
+    .muted { color:#555; }
+    .skills { font-size: 0.85rem; color:#555; }
+    .row { display:block; justify-content: space-between; gap: .5rem; }
+    .left { flex:1; }
+    .right { text-align:right; min-width: 140px; }
+    .logo { height: 36px; width: 36px; object-fit: cover; vertical-align: middle; border-radius: 3px; margin-right: 6px; }
+    .titleholder {width:750px;}
+    .titlename {width:600px; float:left}
+    .titleloc {width:600px; float:left}
+    .titleimg {width:50px; float:left}
+    ul { margin: 0.1rem 0 1rem 0rem; display:inline-block;}
+    li { margin: 0.1rem 0; }
+
+    /* Debug grid overlay */
+    {% if grid %}
+    body { background-image:
+      linear-gradient(to right, rgba(0,128,255,.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,128,255,.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    {% endif %}
+  </style>
+</head>
+<body>
+
+  <h1>{{ preset.name }}</h1>
+  {% if preset.description %}<p class="muted">{{ preset.description }}</p>{% endif %}
+
+  {# Controls hint #}
+  <p class="muted" style="font-size:.85rem;">
+    Preview flags:
+    <code>?grid=on</code> · <code>?mode=short</code> · <code>?section=experience|leadership|projects|publications</code>
+  </p>
+
+  {# Experience #}
+  {% if only == '' or only == 'experience' %}
+  <div class="section">
+    <h2>Experience</h2>
+    {% for e in experiences %}
+      <div class="item">
+        <div class="row">
+          <div class="left titleholder">
+            {% if e.target and e.target.logo %}
+              <div class="titleimg">
+                <img class="logo" src="{{ e.target.logo.url }}" alt="logo"/>
+              </div>
+            {% endif %}
+            <div class="titlename">
+              <strong>{{ e.role }}</strong> 
+            </div>
+            <div class="titleloc">
+              {% if e.target %}<span class="muted"> {{ e.target.long_name|default:e.target.short_name }}</span>{% endif %}
+              {% if e.location %}<span class="muted"> · {{ e.location }}</span>{% endif %}
+            </div>
+          </div>
+          <div class="right muted">
+            {{ e.start_date|date:"M Y" }} – {% if e.end_date %}{{ e.end_date|date:"M Y" }}{% else %}Present{% endif %}
+          </div>
+        </div>
+        {# Experience / Leadership highlights: cap at 3 in short mode #}
+        {% with hs=e.highlights.all %}
+          {% if hs.count %}
+            <ul>
+              {% if mode == 'short' %}
+                {% for h in hs|slice:":3" %}
+                  <li>{{ h.text }}</li>
+                {% endfor %}
+              {% else %}
+                {% for h in hs %}
+                  <li>{{ h.text }}</li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+
+        <!-- {% if e.skills.count %}
+          <div class="skills">
+            {% for s in e.skills.all %}
+              {{ s.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %} -->
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# Leadership & Volunteer #}
+  {% if only == '' or only == 'leadership' %}
+  <div class="section">
+    <h2>Leadership & Volunteer</h2>
+    {% for l in leadership %}
+      <div class="item">
+        <div class="row">
+          <div class="left titleholder">
+            {% if l.target and l.target.logo %}
+              <div class="titleimg">
+                <img class="logo" src="{{ l.target.logo.url }}" alt="logo"/>
+              </div>
+            {% endif %}
+            <div class="titlename">
+              <strong>{{ l.title }}</strong> 
+            </div>
+            <div class="titleloc">
+              {% if l.target %}<span class="muted"> {{ l.target.long_name|default:l.target.short_name }}</span>{% endif %}
+              {% if l.location %}<span class="muted"> · {{ l.location }}</span>{% endif %}
+            </div>
+          </div>
+          <div class="right muted">
+            {{ l.start_date|date:"M Y" }} – {% if l.end_date %}{{ l.end_date|date:"M Y" }}{% else %}Present{% endif %}
+          </div>
+        </div>
+        {% if l.summary %}<div class="muted">{{ l.summary }}</div>{% endif %}
+
+        {% with hs=l.highlights.all %}
+          {% if hs.count %}
+            <ul>
+              {% if mode == 'short' %}
+                {% for h in hs|slice:":3" %}
+                  <li>{{ h.text }}</li>
+                {% endfor %}
+              {% else %}
+                {% for h in hs %}
+                  <li>{{ h.text }}</li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <!-- {% if l.skills.count %}
+          <div class="skills">
+            {% for s in l.skills.all %}
+              {{ s.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %} -->
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# Projects #}
+  {% if only == '' or only == 'projects' %}
+  <div class="section">
+    <h2>Projects</h2>
+    {% for p in projects %}
+      <div class="item">
+        <strong>{{ p.name }}</strong>{% if p.role %} <span class="muted"> · {{ p.role }}</span>{% endif %}
+        {% if p.summary %}<div class="muted">{{ p.summary }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# Publications #}
+  {% if only == '' or only == 'publications' %}
+  <div class="section">
+    <h2>Publications</h2>
+    {% for pub in publications %}
+      <div class="item">
+        <strong>{{ pub.title }}</strong>
+        {% if pub.journal_or_venue %}<span class="muted"> — {{ pub.journal_or_venue }}</span>{% endif %}
+        {% if pub.year %}<span class="muted">, {{ pub.year }}</span>{% endif %}
+        {% if pub.pages %}<span class="muted">, pp. {{ pub.pages }}</span>{% endif %}
+        <div class="muted">
+          {% if mode == 'short' %}
+            {% for a in pub.authors.all|slice:":5" %}
+              {% if a.me %}<strong>{{ a.full_name }}</strong>{% else %}{{ a.full_name }}{% endif %}
+              {% if a.corresponding %}✉︎{% endif %}
+              {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+            {% if pub.authors.count > 5 %} et al.{% endif %}
+          {% else %}
+            {% for a in pub.authors.all %}
+              {% if a.me %}<strong>{{ a.full_name }}</strong>{% else %}{{ a.full_name }}{% endif %}
+              {% if a.corresponding %}✉︎{% endif %}
+              {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% if pub.doi %}<div class="muted">DOI: https://doi.org/{{ pub.doi }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</body>
+</html>
