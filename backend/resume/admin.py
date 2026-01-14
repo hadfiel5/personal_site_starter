@@ -9,7 +9,7 @@ from .models import (
     Experience, Highlight, Skill, Education, Project, Institution,
     MediaAsset, Organization, Leadership, LeadershipHighlight, Publication, 
     PublicationAuthor, ResumePreset, ResumePresetExperience, ResumePresetProject,
-    ResumePresetLeadership, ResumePresetPublication 
+    ResumePresetLeadership, ResumePresetPublication, ResumePresetEducation, TemplateFile
     )
 
 class MediaAssetInline(GenericTabularInline):
@@ -323,6 +323,14 @@ class ResumePresetPublicationInline(admin.TabularInline):
     model = ResumePresetPublication
     extra = 1
 
+
+class ResumePresetEducationInline(admin.TabularInline):
+    model = ResumePresetEducation
+    extra = 0
+    autocomplete_fields = ("education",)
+    ordering = ("order",)
+
+
 @admin.register(ResumePreset)
 class ResumePresetAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'is_default_public', 'updated_at')
@@ -333,6 +341,20 @@ class ResumePresetAdmin(admin.ModelAdmin):
         ResumePresetExperienceInline,
         ResumePresetProjectInline,
         ResumePresetLeadershipInline,
-        ResumePresetPublicationInline
+        ResumePresetPublicationInline,
+        ResumePresetEducationInline
     ]
+    fields = (
+            'name', 'slug', 'description', 'is_default_public',
+            'print_template_file', 'preview_template_file',   # NEW
+        )
+
+
+# NEW: register TemplateFile
+@admin.register(TemplateFile)
+class TemplateFileAdmin(admin.ModelAdmin):
+    list_display = ("name", "slug", "kind", "is_active", "updated_at")
+    list_filter  = ("kind", "is_active")
+    search_fields = ("name", "slug")
+
 

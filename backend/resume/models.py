@@ -235,6 +235,24 @@ class PublicationAuthor(BaseStamped):
         return f"{self.full_name}{flag}"
 
 
+# NEW: Admin-uploadable template files (print or preview)
+class TemplateFile(models.Model):
+    KIND_CHOICES = [
+        ("print", "Print (PDF)"),
+        ("preview", "Preview (browser)"),
+    ]
+
+    name = models.CharField(max_length=120)              # Human label: “Dense v1”
+    slug = models.SlugField(max_length=120, unique=True) # e.g., 'dense-v1'
+    kind = models.CharField(max_length=20, choices=KIND_CHOICES)
+    file = models.FileField(upload_to="templates/resume/")  # lives under MEDIA_ROOT/templates/resume/
+    is_active = models.BooleanField(default=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.kind})"
+
 class ResumePreset(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(max_length=120, unique=True)
@@ -246,6 +264,19 @@ class ResumePreset(models.Model):
     header_title = models.CharField(max_length=200, blank=True)
     email = models.EmailField(blank=True)
     phone = models.CharField(max_length=50, blank=True)
+
+    print_template_file   = models.ForeignKey(
+        TemplateFile, null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="presets_print",
+        limit_choices_to={"kind": "print"}
+    )  # NEW
+
+    preview_template_file = models.ForeignKey(
+        TemplateFile, null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="presets_preview",
+        limit_choices_to={"kind": "preview"}
+    )  # NEW
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -294,4 +325,19 @@ class ResumePresetPublication(models.Model):
     class Meta:
         unique_together = ('preset', 'publication')
         ordering = ['order']
+
+class ResumePresetEducation(models.Model):
+    preset = models.ForeignKey(
+        ResumePreset,
+        on_delete=models.CASCADE,
+        related_name='preset_educations'
+    )
+    education = models.ForeignKey(Education, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=1)
+
+
+    class Meta:
+        unique_together = ('preset', 'education')
+        ordering = ['order']
+
 

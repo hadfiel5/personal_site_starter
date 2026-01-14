@@ -1,12 +1,56 @@
-[00:00:00.562] Server  LOG     ✓ Ready in 399ms
-[00:00:05.562] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:07.184] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:42.865] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:45.283] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:40.217] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:40.911] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:32.707] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[17:43:18.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[17:43:19.844] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[17:43:22.208] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[17:43:23.109] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.442] Server  LOG     ✓ Ready in 296ms
+[00:00:01.253] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:03.611] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:01.149] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:03.093] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:02.776] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:04.367] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:10.197] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:14.769] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:07.916] Server  LOG     ✓ Compiled in 31ms
+[00:21:04.679] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:05.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:34:04.128] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:35.422] Server  LOG     ✓ Compiled in 33ms
+[00:36:35.526] Browser ERROR   ./app/components/RangePillClient.tsx:47:21
+Parsing ecmascript source code failed
+  45 |   const s = TYPE_STYLES[item.type]
+  46 |
+> 47 |   const PillInner = (
+     |                     ^
+> 48 |     // <div className="p-2">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 49 |     //   <div className={`text-[0.8rem] font-semibold ${s.text}`}>{labelForType(item.type)}</div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 50 |     // </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 51 |   )
+     | ^^^^
+  52 |
+  53 |   // If href exists, render an <a> so the entire pill is clickable
+  54 |   const PillTag = item.href ? "a" : "div"
+
+Parenthesized expression cannot be empty
+
+Import trace:
+  Server Component:
+    ./app/components/RangePillClient.tsx
+    ./app/page.tsx
+[00:37:21.685] Server  LOG     ✓ Compiled in 15ms
+[00:37:21.787] Browser ERROR   ./app/components/RangePillClient.tsx:49:106
+Parsing ecmascript source code failed
+  47 |   const PillInner = (
+  48 |     <div className="p-2">
+> 49 |       {/*div className={`text-[0.8rem] font-semibold ${s.text}`}>{labelForType(item.type)}</div*/ REMOVED: no need to show type label inside pill -->
+     |                                                                                                          ^
+  50 |     </div>
+  51 |   )
+  52 |
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/components/RangePillClient.tsx
+    ./app/page.tsx
+[00:38:04.580] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
