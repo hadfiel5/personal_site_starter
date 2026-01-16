@@ -131,12 +131,9 @@ function mapToTimeline(payloads: Record<string, AnyRecord[]>): TimelineItem[] {
   for (const e of experiences) {
     const start = ymd(e.start_date)
     const end   = ymd(e.end_date) || TIMELINE_END
-    const place =
-      orgName(e.organization) ||
-      (e.target?.long_name || e.target?.short_name) ||
-      e.target_ref?.short_name || e.target_ref?.long_name || ''
+    const tgt = e.target_ref
+    const place = tgt?.short_name || tgt?.long_name || ''
     const logo =
-      e.organization?.logo ||
       e.target?.logo ||
       e.target_ref?.logo || null
     items.push({
@@ -449,7 +446,6 @@ function RangePill({ item }: { item: TimelineItem }) {
         cursor: 'pointer',
       }}
       tabIndex={0}
-      onClick={() => window.location.href = s.href}
     >
       <div className="p-2">
         <div className={`text-[0.8rem] font-semibold ${s.text}`}>{labelForType(item.type)}</div>

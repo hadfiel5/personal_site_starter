@@ -347,6 +347,7 @@ class ResumePresetAdmin(admin.ModelAdmin):
     fields = (
             'name', 'slug', 'description', 'is_default_public',
             'print_template_file', 'preview_template_file',   # NEW
+            'header_title', 'email', 'phone',
         )
 
 
@@ -356,5 +357,6 @@ class TemplateFileAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "kind", "is_active", "updated_at")
     list_filter  = ("kind", "is_active")
     search_fields = ("name", "slug")
+    prepopulated_fields = {"slug": ("name",)}
 
 

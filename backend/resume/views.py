@@ -41,7 +41,7 @@ class SkillViewSet(BaseCtxViewSet):
 class ExperienceViewSet(BaseCtxViewSet):
     queryset = (
         Experience.objects
-        .select_related('organization')
+        .select_related('target_content_type')
         .prefetch_related('highlights','skills','photos')
         .order_by(
             F('end_date').desc(nulls_first=True),  # ongoing first

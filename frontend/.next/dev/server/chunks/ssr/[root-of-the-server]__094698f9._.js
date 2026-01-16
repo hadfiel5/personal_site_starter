@@ -83,7 +83,7 @@ function ExperienceCard({ exp }) {
         month: 'short',
         year: 'numeric'
     }) : 'Present'}`;
-    const orgName = exp.organization.short_name || exp.organization.long_name;
+    const orgName = exp.target_ref?.short_name || exp.target_ref?.long_name;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
         className: "card",
         children: [
@@ -93,13 +93,13 @@ function ExperienceCard({ exp }) {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center gap-3",
                         children: [
-                            exp.organization.logo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: exp.organization.logo,
+                            exp.target_ref?.logo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                src: exp.target_ref?.logo,
                                 alt: orgName,
                                 className: "h-8 w-8 rounded object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                                lineNumber: 32,
+                                lineNumber: 39,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -109,7 +109,7 @@ function ExperienceCard({ exp }) {
                                         children: exp.role
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                                        lineNumber: 39,
+                                        lineNumber: 46,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -121,19 +121,19 @@ function ExperienceCard({ exp }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                                        lineNumber: 40,
+                                        lineNumber: 47,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                                lineNumber: 38,
+                                lineNumber: 45,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                        lineNumber: 30,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -141,13 +141,13 @@ function ExperienceCard({ exp }) {
                         children: range
                     }, void 0, false, {
                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                        lineNumber: 43,
+                        lineNumber: 50,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                lineNumber: 29,
+                lineNumber: 36,
                 columnNumber: 7
             }, this),
             !!exp.summary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -159,12 +159,12 @@ function ExperienceCard({ exp }) {
                     children: exp.summary
                 }, void 0, false, {
                     fileName: "[project]/app/components/ExperienceCard.tsx",
-                    lineNumber: 47,
+                    lineNumber: 54,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                lineNumber: 46,
+                lineNumber: 53,
                 columnNumber: 9
             }, this),
             !!exp.highlights?.length && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -173,12 +173,12 @@ function ExperienceCard({ exp }) {
                         children: h.text
                     }, h.id, false, {
                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                        lineNumber: 54,
+                        lineNumber: 61,
                         columnNumber: 36
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                lineNumber: 53,
+                lineNumber: 60,
                 columnNumber: 9
             }, this),
             !!exp.skills?.length && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -188,12 +188,12 @@ function ExperienceCard({ exp }) {
                         children: s.name
                     }, s.id, false, {
                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                        lineNumber: 61,
+                        lineNumber: 68,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                lineNumber: 59,
+                lineNumber: 66,
                 columnNumber: 9
             }, this),
             !!exp.photos?.length && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -204,18 +204,18 @@ function ExperienceCard({ exp }) {
                         className: "h-24 w-full rounded object-cover"
                     }, p.id, false, {
                         fileName: "[project]/app/components/ExperienceCard.tsx",
-                        lineNumber: 69,
+                        lineNumber: 76,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/app/components/ExperienceCard.tsx",
-                lineNumber: 67,
+                lineNumber: 74,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/ExperienceCard.tsx",
-        lineNumber: 28,
+        lineNumber: 35,
         columnNumber: 5
     }, this);
 }
@@ -305,7 +305,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Nav$2e$
 ;
 ;
 async function fetchExperience() {
-    const url = ("TURBOPACK compile-time value", "http://127.0.0.1:8000/api") + '/experience/';
+    const url = ("TURBOPACK compile-time value", "http://localhost:8000/api") + '/experience/';
     const res = await fetch(url, {
         next: {
             revalidate: 60

@@ -18,6 +18,8 @@ type TimelineItemClient = {
   logoUrl?: string
   topPct: number
   heightPct: number
+  leftPct: number    // NEW
+  widthPct: number   // NEW
 }
 
 const TYPE_STYLES: Record<TimelineType, { bg: string; border: string; text: string }> = {

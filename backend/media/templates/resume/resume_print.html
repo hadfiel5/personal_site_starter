@@ -8,27 +8,29 @@
   <style>
     /* Print-friendly baseline */
     @page { size: A4; margin: 10mm; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; color: #111; }
+    
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16pt; line-height: 1.4; color: #111; font-size: 16px; }
     h1 { font-size: 1.6rem; margin: 0 0 0.25rem 0; }
     h2 { font-size: 1.1rem; margin: 1rem 0 0.25rem 0; border-bottom: 1px solid #ddd; padding-bottom: 0.15rem; }
     .centered { margin-left:auto; margin-right:auto; text-align:center; }
     .section { margin-top: 0.6rem; }
-    .item { margin: 0.3rem 0; font-size: 0.9em; overflow: hidden;}
+    .item { margin: 0.3rem 0; font-size: 14px; overflow: hidden;}
     .muted { color: #555; }
     .badges { font-size: 0.8rem; color:#444;}
     .titleholder {width:550px; display: block;}
     .titlename {width:500px; height:18px; float:left}
-    .titleloc {width:500px; height:18px; float:left}
+    .titleloc {width:500px; height:18px; float:left; font-style: italic;}
     .titleimg {width:40px; float:left}
     .datestring {height:18px;}
-    ul { margin: 0.1rem 0 1rem 0rem; display:inline-block; padding-left: 20px;}
+    ul { margin: 0.1rem 0 0.5rem 0rem; display:inline-block; padding-left: 20px; font-size: 13px;}
     li { margin: 0.1rem 0; }
     .row { display:block; justify-content: space-between; gap: 0.5rem; }
     .left { float:left }
     .right { text-align:right; min-width: 140px; float:right}
     .skills { font-size: 0.85rem; color: #555; }
-    .logo { height: 30px; width: 30px; object-fit: cover; vertical-align: middle; border-radius: 3px; margin-right: 6px; }
-    .education { margin-bottom: 1em;}
+    .logo { height: 30px; width: 30px; object-fit:contain; vertical-align: middle; border-radius: 3px; margin-right: 6px; }
+    .education { margin-bottom: 0.5em;}
   </style>
 </head>
 <body>
@@ -98,7 +100,7 @@
             </div>
             <div class="titleloc">
               {% if e.target %}<span class="muted"> {{ e.target.long_name|default:e.target.short_name }}</span>{% endif %}
-              {% if e.location %}<span class="muted"> · {{ e.location }}</span>{% endif %}
+              {% if e.location %}<span class="muted">· {{ e.location }}</span>{% endif %}
             </div>
           </div>
           <div class="right muted datestring">
@@ -142,7 +144,7 @@
             </div>
             <div class="titleloc">
               {% if l.target %}<span class="muted"> {{ l.target.long_name|default:l.target.short_name }}</span>{% endif %}
-              {% if l.location %}<span class="muted"> · {{ l.location }}</span>{% endif %}
+              {% if l.location %}<span class="muted">· {{ l.location }}</span>{% endif %}
             </div>
           </div>
           <div class="right muted">

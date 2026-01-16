@@ -1,13 +1,20 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-type Org = { id: number; long_name: string; short_name?: string; logo?: string }
+type TargetRef = {
+  type: 'organization' | 'institution'
+  id: number
+  short_name?: string
+  long_name?: string
+  logo?: string | null
+  website?: string
+}
 type Highlight = { id: number; text: string }
 type Skill = { id: number; name: string }
 
 export type Experience = {
   id: number
-  organization: Org
+  target_ref?: TargetRef | null
   role: string
   start_date: string
   end_date: string | null
@@ -22,15 +29,15 @@ export default function ExperienceCard({ exp }: { exp: Experience }) {
   const end = exp.end_date ? new Date(exp.end_date) : null
   const start = new Date(exp.start_date)
   const range = `${start.toLocaleString('en-US', { month: 'short', year: 'numeric' })} - ${end ? end.toLocaleString('en-US', { month: 'short', year: 'numeric' }) : 'Present'}`
-  const orgName = exp.organization.short_name || exp.organization.long_name
+  const orgName = exp.target_ref?.short_name || exp.target_ref?.long_name
 
   return (
     <article className="card">
       <header className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          {exp.organization.logo && (
+          {exp.target_ref?.logo && (
             <img
-              src={exp.organization.logo}
+              src={exp.target_ref?.logo}
               alt={orgName}
               className="h-8 w-8 rounded object-cover"
             />

@@ -1,0 +1,40 @@
+// General Google Cloud
+gcloud auth login
+
+// Backend stuff
+
+docker buildx build \             
+  --platform linux/amd64 \                                                        
+  -t us-central1-docker.pkg.dev/resume-site-484318/app-images/django:latest \  --push . 
+
+
+gcloud run deploy django-service \
+  --image us-central1-docker.pkg.dev/resume-site-484318/app-images/django:latest \
+  --platform managed \  
+  --region us-central1 \        
+  --allow-unauthenticated \  
+  --project 'resume-site-848318' \               
+  --set-env-vars DATABASE_URL="postgresql://neondb_owner:npg_c9vtNjsB6Edb@ep-sweet-fog-aeoohl8d-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require",DJANGO_SECRET_KEY=brandon-resume-site-im-allergic-to-cats,GS_BUCKET_NAME=resume-site-bucket-1 --project=resume-site-484318
+
+// Run something in docker
+docker run -it \
+  -e DJANGO_SECRET_KEY="brandon-resume-site-im-allergic-to-cats" \
+  -e DATABASE_URL="postgresql://neondb_owner:npg_c9vtNjsB6Edb@ep-sweet-fog-aeoohl8d-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require" \
+  -e GS_BUCKET_NAME="resume-site-bucket-1" \
+  us-central1-docker.pkg.dev/resume-site-484318/app-images/django:latest \
+  python manage.py createsuperuser
+
+// Frontend Stuff
+
+docker buildx build \             
+  --platform linux/amd64 \                                                        
+  --build-arg NEXT_PUBLIC_API_URL=https://django-service-339934437429.us-central1.run.app/api \
+  -t us-central1-docker.pkg.dev/resume-site-484318/app-images/nextjs:latest --push .
+
+// Just build on GCP
+gcloud run deploy nextjs-service \
+  --image s-central1-docker.pkg.dev/resume-site-484318/app-images/nextjs:latest@sha256:0ebe4adb3088e755a15a8bb4a1 \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --project="resume-site-484318"

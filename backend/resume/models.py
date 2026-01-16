@@ -86,9 +86,9 @@ class Organization(BaseStamped):
 
     
 class Experience(BaseStamped):
-    organization = models.ForeignKey(
-        Organization, null=False, on_delete=models.PROTECT, related_name='experiences'
-    )
+    # organization = models.ForeignKey(
+    #     Organization, null=False, on_delete=models.PROTECT, related_name='experiences'
+    # )
     role = models.CharField(max_length=200)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)

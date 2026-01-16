@@ -92,7 +92,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Nav$2e$
 ;
 ;
 async function fetchEducation() {
-    const url = ("TURBOPACK compile-time value", "http://127.0.0.1:8000/api") + '/education/';
+    const url = ("TURBOPACK compile-time value", "http://localhost:8000/api") + '/education/';
     const res = await fetch(url, {
         next: {
             revalidate: 60

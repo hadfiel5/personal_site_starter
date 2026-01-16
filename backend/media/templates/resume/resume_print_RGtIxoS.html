@@ -20,6 +20,7 @@
     .titlename {width:500px; height:18px; float:left}
     .titleloc {width:500px; height:18px; float:left}
     .titleimg {width:40px; float:left}
+    .extrabottom { margin-bottom: 20mm; }
     .description { display: block; width: 100%; min-height: 20px; margin-bottom: 0.8rem;}
     .description p {text-align: center; min-height: 1.5rem;}
     .datestring {height:18px;}
@@ -34,7 +35,7 @@
     /* .left { float:left }
     .right { text-align:right; min-width: 140px; float:right} */
     .skills { font-size: 0.85rem; color: #555; }
-    .logo { height: 30px; width: 30px; object-fit:contain; vertical-align: middle; border-radius: 3px; margin-right: 6px; }
+    .logo { height: 30px; width: 30px; object-fit: cover; vertical-align: middle; border-radius: 3px; margin-right: 6px; }
     .education { margin-bottom: 1em;}
   </style>
 </head>
@@ -46,7 +47,7 @@
     <div class="left muted">{{preset.email}}</div>
     <div class="right muted">{{preset.phone}}</div>
   </div>
-  <p class="muted centered">{{ preset.description }}</p>
+  <p class="muted centered description">{{ preset.description }}</p>
   
   {# Education #}
   <div class="section">

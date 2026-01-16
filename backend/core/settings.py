@@ -1,11 +1,70 @@
-
 import os
 from pathlib import Path
+from urllib.parse import urlparse, parse_qsl
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-key-change-me')
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+DEBUG = os.environ.get('DJANGO_DEV', 'False') == 'True'
+
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,      # keep connections open
+        conn_health_checks=True
+    )
+}
+
+if DEBUG:
+    ALLOWED_HOSTS = ["http://localhost:8000", "localhost"]
+    CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
+
+    # Development (filesystem)
+    STATIC_URL = "/static/"
+    STATIC_ROOT = BASE_DIR / "static"
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
+
+
+else:
+    ALLOWED_HOSTS = ["django-service-339934437429.us-central1.run.app"]
+    CSRF_TRUSTED_ORIGINS = ["https://django-service-339934437429.us-central1.run.app"]
+
+    DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+    GS_BUCKET_NAME = os.environ.get("GS_BUCKET_NAME")
+
+    STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/static/"
+    STATIC_ROOT = BASE_DIR / 'static'
+
+    MEDIA_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/media/"
+    MEDIA_ROOT = BASE_DIR / 'media'
+
+    # Django ≥ 4.2 storage config
+    STORAGES = {
+        # User uploads (media)
+        "default": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                "bucket_name": GS_BUCKET_NAME,
+                # Put media under a prefix in the bucket:
+                "location": "media",
+                "querystring_auth": False,
+            },
+        },
+        # Static files collected by `collectstatic`
+        "staticfiles": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                "bucket_name": GS_BUCKET_NAME,
+                # Put static under a prefix in the bucket:
+                "location": "static",
+                "querystring_auth": False,
+            },
+        },
+    }
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -50,25 +109,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = []
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Toronto'
 USE_I18N = True
 USE_TZ = True
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 
 CORS_ALLOW_ALL_ORIGINS = False
